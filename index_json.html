@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script>
+	function runAjax() {
+		var R=new XMLHttpRequest();
+		R.open('GET','tv.json',true);
+		R.send();
+		R.onload=function(){
+			var s='';
+
+			<!-- разбор JSON -->
+			var mydata=R.responseText;
+			var programms=JSON.parse(mydata);
+			for (var i=0;i<programms.tv.programme.length;i++) {
+				s+='<p>'+programms.tv.programme[i].title.text+'</p>';
+			}
+			<!-- /разбор JSON -->
+
+			document.getElementById('output').innerHTML=s;
+
+		}
+	}
+	</script>
+</head>
+<body onLoad="runAjax()">
+	<div id="output"></div>
+</body>
+</html>
